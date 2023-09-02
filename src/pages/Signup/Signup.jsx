@@ -1,3 +1,9 @@
+import { SignupBox } from "./components/SignupBox";
+
 export const Signup = () => {
-  return <div>Signup</div>;
+  return (
+    <section>
+      <SignupBox />
+    </section>
+  );
 };

@@ -1,13 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { LoginBox } from "./components/LoginBox";
 
 export const Login = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location?.state?.from?.pathname || "/";
-
-  const handleSubmit = () => {
-    navigate(from, { replace: true });
-  };
-
-  return <div>Login</div>;
+  return <LoginBox />;
 };
