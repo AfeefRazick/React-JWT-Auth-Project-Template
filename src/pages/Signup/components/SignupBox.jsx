@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { axiosPublic } from "../../../api/axios";
 
 export const SignupBox = () => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/");
+
+    await axiosPublic.post("/signup", { username, password });
+    setPassword("");
+    setUsername("");
+    navigate("/login");
   };
 
   //no validation
@@ -17,15 +22,15 @@ export const SignupBox = () => {
     <form onSubmit={handleSubmit}>
       <h1>Sign Up</h1>
 
-      <label htmlFor="email">Email</label>
+      <label htmlFor="username">username</label>
       <input
-        value={email}
+        value={username}
         onChange={(e) => {
-          setEmail(e.target.value);
+          setUsername(e.target.value);
         }}
-        type="email"
-        name="email"
-        id="email"
+        type="username"
+        name="username"
+        id="username"
       />
 
       <label htmlFor="password">Password</label>

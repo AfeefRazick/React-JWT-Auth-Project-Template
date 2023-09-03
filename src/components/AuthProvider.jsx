@@ -7,7 +7,7 @@ import * as authTypes from "../actionTypes/authTypes";
 const reducer = (auth, action) => {
   switch (action.type) {
     case authTypes.LOGIN_WITH_OAUTH_SUCCESS:
-      localStorage.setItem("JWTTOKEN", action.payload.credential);
+    case authTypes.LOGIN_WITH_USERNAME_SUCCESS:
       return {
         ...auth,
         isLoading: false,
@@ -17,7 +17,6 @@ const reducer = (auth, action) => {
       };
 
     case authTypes.LOGOUT_SUCCESS:
-      localStorage.removeItem("JWTTOKEN");
       return { ...auth, isAuthenticated: false, user: {} };
 
     case authTypes.UPDATE_USER_LOADING:
@@ -32,7 +31,6 @@ const reducer = (auth, action) => {
       };
 
     case authTypes.DELETE_USER_SUCCESS:
-      localStorage.removeItem("JWTTOKEN");
       return {
         ...auth,
         isLoading: false,
@@ -52,8 +50,6 @@ const reducer = (auth, action) => {
       };
 
     case authTypes.PERSISTENT_LOGIN_SUCCESS:
-      localStorage.setItem("JWTTOKEN", action.payload.credential);
-
       return {
         ...auth,
         isLoading: false,
@@ -74,10 +70,10 @@ export const AuthProvider = ({ children }) => {
     user: {},
     isAppLoaded: false,
   });
-  // change to not
-  if (auth.isAppLoaded) {
-    return <Loading type={"circle"} />;
-  }
+  console.log(auth);
+  // if (!auth.isAppLoaded) {
+  //   return <Loading type={"circle"} />;
+  // }
 
   return (
     <authContext.Provider value={{ auth, dispatch }}>
