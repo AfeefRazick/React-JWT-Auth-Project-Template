@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 import { useReducer } from "react";
 import { authContext } from "../context/authContext";
-import { Loading } from "./Loading";
 import * as authTypes from "../actionTypes/authTypes";
 
 const reducer = (auth, action) => {
   switch (action.type) {
     case authTypes.LOGIN_WITH_OAUTH_SUCCESS:
     case authTypes.LOGIN_WITH_USERNAME_SUCCESS:
+    case authTypes.REFRESH_ACCESS_TOKEN:
       return {
         ...auth,
         isLoading: false,
         isAppLoaded: true,
         isAuthenticated: true,
-        user: { ...action.payload },
+        user: { ...auth?.user, ...action.payload },
       };
 
     case authTypes.LOGOUT_SUCCESS:

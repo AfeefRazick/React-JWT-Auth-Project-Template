@@ -5,12 +5,10 @@ import { v4 } from "uuid";
 export const Dashboard = () => {
   const axiosPrivate = useAxiosPrivate();
   const [users, setUsers] = useState();
-  console.log(users);
+
   const getUsers = async () => {
-    console.log(4);
     const response = await axiosPrivate.get("/users");
-    console.log(response);
-    const users = response.data.users;
+    const users = response?.data?.users;
     setUsers(users);
   };
   // useEffect(() => {
@@ -28,3 +26,5 @@ export const Dashboard = () => {
     </div>
   );
 };
+
+// check his solution for if the reshresh token return is invalid and how to cause user logout
