@@ -27,4 +27,4 @@ export const Dashboard = () => {
   );
 };
 
-// check his solution for if the reshresh token return is invalid and how to cause user logout
+// check his solution for if the refresh token return is invalid and how to cause user logout

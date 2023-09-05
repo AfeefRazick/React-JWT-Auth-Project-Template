@@ -21,17 +21,26 @@ export const useAxiosPrivate = () => {
     );
 
     const responseInterceptor = axiosPrivate.interceptors.response.use(
-      (response) => response,
+      (response) => {
+        console.log("response");
+        return response;
+      },
       async (err) => {
         const previousRequest = err?.config;
-        console.log(err);
+
         if (!previousRequest?.sent && err?.response?.status === 403) {
           previousRequest.sent = true;
 
           const newAccessToken = await refresh();
-          previousRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          return axiosPrivate(previousRequest);
+          if (newAccessToken) {
+            previousRequest.headers[
+              "Authorization"
+            ] = `Bearer ${newAccessToken}`;
+            return axiosPrivate(previousRequest);
+          }
+          return Promise.reject(err);
         }
+
         return Promise.reject(err);
       }
     );
