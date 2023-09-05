@@ -2,7 +2,6 @@
 import { useReducer } from "react";
 import { authContext } from "../context/authContext";
 import * as authTypes from "../actionTypes/authTypes";
-import { Loading } from "./Loading";
 
 const reducer = (auth, action) => {
   switch (action.type) {

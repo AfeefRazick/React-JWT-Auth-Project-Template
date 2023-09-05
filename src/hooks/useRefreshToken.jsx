@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { LOGOUT_SUCCESS, REFRESH_ACCESS_TOKEN } from "../actionTypes/authTypes";
 import { axiosPublic } from "../api/axios";
 import { useAuth } from "./useAuth";
@@ -5,7 +6,7 @@ import { useAuth } from "./useAuth";
 export const useRefreshToken = () => {
   const { dispatch } = useAuth();
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     try {
       const response = await axiosPublic.get("/refresh-token", {
         withCredentials: true,
@@ -20,10 +21,9 @@ export const useRefreshToken = () => {
     } catch (err) {
       if (err?.response?.status === 403) {
         dispatch({ type: LOGOUT_SUCCESS });
-        // navigate("/login", { state: { from: location } });
         return;
       }
     }
-  };
+  }, [dispatch]);
   return refresh;
 };

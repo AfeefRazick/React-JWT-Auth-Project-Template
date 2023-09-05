@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import { useEffect } from "react";
 import { useRefreshToken } from "../hooks/useRefreshToken";
 import {
@@ -26,7 +27,7 @@ export const PersistentLogin = ({ children }) => {
       return dispatch({ type: PERSISTENT_LOGIN_FAIL });
     };
     persistentLogin();
-  }, [dispatch]);
+  }, [dispatch, refresh]);
 
   if (!auth.isAppLoaded) {
     return <Loading type={"circle"} />;

@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAxiosPrivate } from "../../hooks/useAxiosPrivate";
 import { v4 } from "uuid";
+import { useLogout } from "../../hooks/useLogout";
 
 export const Dashboard = () => {
   const axiosPrivate = useAxiosPrivate();
+  const logout = useLogout();
   const [users, setUsers] = useState();
 
   const getUsers = async () => {
@@ -11,11 +13,10 @@ export const Dashboard = () => {
     const users = response?.data?.users;
     setUsers(users);
   };
-  // useEffect(() => {
-  //   setUsers(async () => {
-  //     return await axiosPrivate.get("/users");
-  //   });
-  // }, [axiosPrivate]);
+
+  const handleSignOut = async () => {
+    await logout();
+  };
 
   return (
     <div>
@@ -23,6 +24,7 @@ export const Dashboard = () => {
       {users?.map((user) => {
         return <p key={v4()}>{user.username}</p>;
       })}
+      <button onClick={handleSignOut}>Sign Out</button>
     </div>
   );
 };
