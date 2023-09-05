@@ -2,6 +2,7 @@
 import { useReducer } from "react";
 import { authContext } from "../context/authContext";
 import * as authTypes from "../actionTypes/authTypes";
+import { Loading } from "./Loading";
 
 const reducer = (auth, action) => {
   switch (action.type) {
@@ -71,9 +72,6 @@ export const AuthProvider = ({ children }) => {
     isAppLoaded: false,
   });
   console.log(auth);
-  // if (!auth.isAppLoaded) {
-  //   return <Loading type={"circle"} />;
-  // }
 
   return (
     <authContext.Provider value={{ auth, dispatch }}>

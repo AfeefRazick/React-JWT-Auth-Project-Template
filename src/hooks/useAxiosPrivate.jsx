@@ -31,14 +31,11 @@ export const useAxiosPrivate = () => {
         if (!previousRequest?.sent && err?.response?.status === 403) {
           previousRequest.sent = true;
 
-          const newAccessToken = await refresh();
-          if (newAccessToken) {
-            previousRequest.headers[
-              "Authorization"
-            ] = `Bearer ${newAccessToken}`;
+          const { accessToken } = await refresh();
+          if (accessToken) {
+            previousRequest.headers["Authorization"] = `Bearer ${accessToken}`;
             return axiosPrivate(previousRequest);
           }
-          return Promise.reject(err);
         }
 
         return Promise.reject(err);

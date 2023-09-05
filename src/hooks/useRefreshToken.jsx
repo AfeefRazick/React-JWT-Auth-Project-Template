@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { LOGOUT_SUCCESS, REFRESH_ACCESS_TOKEN } from "../actionTypes/authTypes";
 import { axiosPublic } from "../api/axios";
 import { useAuth } from "./useAuth";
 
 export const useRefreshToken = () => {
   const { dispatch } = useAuth();
-  const navigate = useNavigate();
 
   const refresh = async () => {
     try {
@@ -17,11 +15,12 @@ export const useRefreshToken = () => {
         type: REFRESH_ACCESS_TOKEN,
         payload: { accessToken: response?.data?.accessToken },
       });
-      return response?.data?.accessToken;
+
+      return { ...response?.data };
     } catch (err) {
       if (err?.response?.status === 403) {
         dispatch({ type: LOGOUT_SUCCESS });
-        navigate("/login");
+        // navigate("/login", { state: { from: location } });
         return;
       }
     }
