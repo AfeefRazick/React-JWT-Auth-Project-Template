@@ -3,6 +3,7 @@ import { LOGOUT_SUCCESS, REFRESH_ACCESS_TOKEN } from "../actionTypes/authTypes";
 import { axiosPublic } from "../api/axios";
 import { useAuth } from "./useAuth";
 
+// hook returns a function that fetches a new accessToken
 export const useRefreshToken = () => {
   const { dispatch } = useAuth();
 

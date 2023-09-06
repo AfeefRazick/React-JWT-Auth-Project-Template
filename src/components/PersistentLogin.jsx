@@ -9,10 +9,13 @@ import {
 import { useAuth } from "../hooks/useAuth";
 import { Loading } from "./Loading";
 
+// this component persists the users login even on refresh
+// needs to be a seperate component as child of authprovider to use auth state
 export const PersistentLogin = ({ children }) => {
   const { auth, dispatch } = useAuth();
   const refresh = useRefreshToken();
 
+  // runs on page load to fetch user if user has a valid refresh token
   useEffect(() => {
     const persistentLogin = async () => {
       dispatch({ type: PERSISTENT_LOGIN_LOADING });

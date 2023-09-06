@@ -3,6 +3,7 @@ import { useAuth } from "./useAuth";
 import { LOGOUT_SUCCESS } from "../actionTypes/authTypes";
 import { axiosPrivate } from "../api/axios";
 
+// hook that returns a logout function
 export const useLogout = () => {
   const { dispatch } = useAuth();
 

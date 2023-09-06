@@ -1,4 +1,7 @@
 /* eslint react/prop-types: 0 */
+
+// loading component that fits to the size of its container
+// type is passed for different loading screens
 export const Loading = ({ type }) => {
   if (type === "circle") {
     return (

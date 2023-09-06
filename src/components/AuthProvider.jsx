@@ -3,6 +3,23 @@ import { useReducer } from "react";
 import { authContext } from "../context/authContext";
 import * as authTypes from "../actionTypes/authTypes";
 
+//  component provides the auth state to the entire component tree to access the user object
+export const AuthProvider = ({ children }) => {
+  const [auth, dispatch] = useReducer(reducer, {
+    isAuthenticated: false,
+    isLoading: true,
+    user: {},
+    isAppLoaded: false,
+  });
+  console.log(auth);
+
+  return (
+    <authContext.Provider value={{ auth, dispatch }}>
+      {children}
+    </authContext.Provider>
+  );
+};
+
 const reducer = (auth, action) => {
   switch (action.type) {
     case authTypes.LOGIN_WITH_OAUTH_SUCCESS:
@@ -61,20 +78,4 @@ const reducer = (auth, action) => {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
   }
-};
-
-export const AuthProvider = ({ children }) => {
-  const [auth, dispatch] = useReducer(reducer, {
-    isAuthenticated: false,
-    isLoading: true,
-    user: {},
-    isAppLoaded: false,
-  });
-  console.log(auth);
-
-  return (
-    <authContext.Provider value={{ auth, dispatch }}>
-      {children}
-    </authContext.Provider>
-  );
 };
